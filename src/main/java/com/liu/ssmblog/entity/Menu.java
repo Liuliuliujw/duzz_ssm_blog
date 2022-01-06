@@ -23,10 +23,10 @@ public class Menu implements Serializable {
     /**
      * 菜单父节点ID
      */
-    private Integer menuParentId;
+    private Integer menuPid;
 
     /**
-     * 菜单类型
+     * 菜单类型 ：MenuTypes
      */
     private Integer menuType;
 

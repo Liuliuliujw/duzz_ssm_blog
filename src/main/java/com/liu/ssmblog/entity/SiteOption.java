@@ -18,26 +18,31 @@ public class SiteOption implements Serializable {
     /**
      * 网站标题
      */
+    private Integer optionId;
+
+    /**
+     * 网站标题
+     */
     private String siteTitle;
 
     /**
      * 网站描述
      */
-    private String description;
+    private String siteDescription;
 
     /**
      * 网站关键词
      */
-    private String keywords;
+    private String siteKeywords;
 
     /**
      * 网站首页地址
      */
-    private String indexUrl;
+    private String siteIndexUrl;
 
     /**
      * 网站备案号
      */
-    private String icpNum;
+    private String siteIcpNum;
 
 }

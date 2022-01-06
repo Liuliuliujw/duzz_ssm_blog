@@ -32,7 +32,7 @@ public class Article implements Serializable{
     private String articleTitle;
 
     /**
-     * 文章简介
+     * 文章摘要
      */
     private String articleSummary;
 
@@ -47,7 +47,7 @@ public class Article implements Serializable{
     private String articleContent;
 
     /**
-     * 文章被阅读数
+     * 文章访问量
      */
     private Integer articleViewCount;
 
