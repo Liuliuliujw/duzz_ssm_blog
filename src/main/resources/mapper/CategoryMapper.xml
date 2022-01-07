@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liu.ssmblog.mapper.CategoryMapper">
+    <resultMap id="EntityMap" type="com.liu.ssmblog.entity.Category">
+        <id column="category_id" property="categoryId" jdbcType="INTEGER"/>
+        <result column="category_name" property="categoryName" jdbcType="VARCHAR"/>
+        <result column="category_description" property="categoryDescription" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="tb">category</sql>
+    <sql id="Base_Column_List">
+        category_id, category_name, category_description
+    </sql>
+
+    <insert id="insertCategory" parameterType="com.liu.ssmblog.entity.Category" useGeneratedKeys="true" keyProperty="categoryId">
+        INSERT INTO
+        <include refid="tb"/>
+        (category_name,category_description)
+        VALUES
+        (#{categoryName,jdbcType=VARCHAR}, #{categoryDescription,jdbcType=VARCHAR})
+    </insert>
+
+    <select id="findCategoryById" resultMap="EntityMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        <include refid="tb"/>
+        WHERE
+        category.category_id=#{value}
+    </select>
+
+    <select id="findCategoryByName" resultMap="EntityMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        <include refid="tb"/>
+        WHERE
+        category_name=#{name}
+        LIMIT 1
+    </select>
+
+    <select id="listCategory" resultMap="EntityMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        <include refid="tb"/>
+    </select>
+
+    <select id="countCategory">
+        SELECT
+        COUNT(*)
+        FROM
+        <include refid="tb"/>
+    </select>
+
+    <update id="updateCategory" parameterType="com.liu.ssmblog.entity.Category">
+        UPDATE
+        <include refid="tb"/>
+        <set>
+            <if test="categoryName != null">category_name = #{categoryName,jdbcType=VARCHAR},</if>
+            <if test="categoryDescription != null">category_description = #{categoryDescription,jdbcType=VARCHAR},</if>
+        </set>
+        WHERE category_id = #{categoryId,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteCategoryById">
+        DELETE FROM
+        <include refid="tb"/>
+        WHERE category_id=#{id}
+    </delete>
+
+</mapper>

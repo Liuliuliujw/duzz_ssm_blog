@@ -124,6 +124,12 @@
         </dependency>
 
         <!--  **********************************  测试  **********************************   -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+        </dependency>
         <!-- 测试 -->
         <dependency>
             <groupId>junit</groupId>

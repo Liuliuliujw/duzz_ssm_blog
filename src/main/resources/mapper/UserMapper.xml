@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liu.ssmblog.mapper.UserMapper">
+    <resultMap id="EntityMap" type="com.liu.ssmblog.entity.User">
+        <id column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="user_pass" property="userPass" jdbcType="VARCHAR"/>
+        <result column="user_nickname" property="userNickname" jdbcType="VARCHAR"/>
+        <result column="user_email" property="userEmail" jdbcType="VARCHAR"/>
+        <result column="user_avatar" property="userAvatar" jdbcType="VARCHAR"/>
+        <result column="user_register_time" property="userRegisterTime" jdbcType="TIMESTAMP"/>
+        <result column="user_last_login_time" property="userLastLoginTime" jdbcType="TIMESTAMP"/>
+        <result column="user_status" property="userStatus" jdbcType="INTEGER"/>
+        <result column="user_role" property="userRole" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="tb">user</sql>
+    <sql id="Base_Column_List">
+        user_id, user_name, user_pass, user_nickname, user_email, user_avatar, user_register_time, user_last_login_time,
+        user_status, user_role
+    </sql>
+
+    <insert id="insertUser" parameterType="com.liu.ssmblog.entity.User" useGeneratedKeys="true" keyProperty="userId">
+        INSERT INTO
+        <include refid="tb"/>
+        (user_name, user_pass, user_nickname, user_email, user_avatar,
+        user_register_time, user_last_login_time, user_status, user_role)
+        VALUES (#{userName,jdbcType=VARCHAR}, #{userPass,jdbcType=VARCHAR},
+        #{userNickname,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR},
+        #{userAvatar,jdbcType=VARCHAR}, #{userRegisterTime,jdbcType=TIMESTAMP},
+        #{userLastLoginTime,jdbcType=TIMESTAMP}, #{userStatus,jdbcType=INTEGER}, #{userRole,jdbcType=INTEGER})
+    </insert>
+
+    <select id="findUserById" resultMap="EntityMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        <include refid="tb"/>
+        WHERE user_id = #{userId,jdbcType=INTEGER}
+    </select>
+
+    <select id="findUserByName" resultMap="EntityMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        <include refid="tb"/>
+        <where>
+            user_name=#{name}
+        </where>
+        LIMIT 1
+    </select>
+
+    <select id="findUserByEmail" resultMap="EntityMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        <include refid="tb"/>
+        <where>
+            user_email=#{email}
+        </where>
+        LIMIT 1
+    </select>
+
+    <select id="listUser" resultMap="EntityMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        <include refid="tb"/>
+        ORDER BY `user_status` ASC
+    </select>
+
+    <update id="updateUser" parameterType="com.liu.ssmblog.entity.User">
+        UPDATE
+        <include refid="tb"/>
+        <set>
+            <if test="userName != null">user_name = #{userName,jdbcType=VARCHAR},</if>
+            <if test="userPass != null">user_pass = #{userPass,jdbcType=VARCHAR},</if>
+            <if test="userNickname != null">user_nickname = #{userNickname,jdbcType=VARCHAR},</if>
+            <if test="userEmail != null">user_email = #{userEmail,jdbcType=VARCHAR},</if>
+            <if test="userAvatar != null">user_avatar = #{userAvatar,jdbcType=VARCHAR},</if>
+            <if test="userRegisterTime != null">user_register_time = #{userRegisterTime,jdbcType=TIMESTAMP},</if>
+            <if test="userLastLoginTime != null">user_last_login_time = #{userLastLoginTime,jdbcType=TIMESTAMP},</if>
+            <if test="userStatus != null">user_status = #{userStatus,jdbcType=INTEGER},</if>
+            <if test="userRole != null">user_role = #{userRole,jdbcType=INTEGER},</if>
+        </set>
+        WHERE
+        user_id = #{userId,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteUserById">
+        DELETE FROM
+        <include refid="tb"/>
+        WHERE
+        user_id = #{userId,jdbcType=INTEGER}
+    </delete>
+
+</mapper>

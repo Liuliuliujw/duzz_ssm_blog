@@ -5,8 +5,8 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- *  @author: llliujw
- *  @Description: 数据表category对应实体类 ：分类
+ * @author: llliujw
+ * @Description: 数据表category对应实体类 ：分类
  */
 @Data
 public class Category implements Serializable {

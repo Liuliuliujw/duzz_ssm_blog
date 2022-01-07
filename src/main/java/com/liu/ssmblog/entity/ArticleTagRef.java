@@ -5,8 +5,8 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- *  @author: llliujw
- *  @Description: 数据表article_tag_ref对应实体类
+ * @author: llliujw
+ * @Description: 数据表article_tag_ref对应实体类
  */
 @Data
 public class ArticleTagRef implements Serializable {

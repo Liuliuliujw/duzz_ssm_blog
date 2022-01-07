@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liu.ssmblog.mapper.CommentMapper">
+    <resultMap id="EntityMap" type="com.liu.ssmblog.entity.Comment">
+        <id column="comment_id" property="commentId" jdbcType="INTEGER"/>
+        <result column="comment_pid" property="commentPid" jdbcType="INTEGER"/>
+        <result column="comment_article_id" property="commentArticleId" jdbcType="INTEGER"/>
+        <result column="comment_user_id" property="commentUserId" jdbcType="INTEGER"/>
+        <result column="comment_content" property="commentContent" jdbcType="VARCHAR"/>
+        <result column="comment_create_time" property="commentCreateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="tb">comment</sql>
+    <sql id="Base_Column_List">
+        comment_id, comment_pid, comment_article_id, comment_user_id, comment_content, comment_create_time
+    </sql>
+
+    <insert id="insertComment" parameterType="com.liu.ssmblog.entity.Comment" useGeneratedKeys="true" keyProperty="commentId">
+        INSERT INTO
+        <include refid="tb"/>
+        (comment_pid, comment_article_id, comment_user_id, comment_content, comment_create_time)
+        VALUES
+        (#{commentPid,jdbcType=INTEGER}, #{commentArticleId,jdbcType=INTEGER}, #{commentUserId,jdbcType=INTEGER},
+        #{commentContent,jdbcType=VARCHAR}, #{commentCreateTime,jdbcType=TIMESTAMP})
+    </insert>
+
+    <select id="findCommentById" resultMap="EntityMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        <include refid="tb"/>
+        WHERE comment_id = #{commentId,jdbcType=INTEGER}
+    </select>
+
+    <select id="listCommentByArticleId" resultMap="EntityMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        <include refid="tb"/>
+        WHERE
+        comment_article_id = #{articleId}
+    </select>
+
+    <update id="updateComment" parameterType="com.liu.ssmblog.entity.Comment">
+        UPDATE
+        <include refid="tb"/>
+        <set>
+            <if test="commentPid != null">comment_pid = #{commentPid,jdbcType=INTEGER},</if>
+            <if test="commentArticleId != null">comment_article_id = #{commentArticleId,jdbcType=INTEGER},</if>
+            <if test="commentUserId != null">comment_user_id = #{commentUserId,jdbcType=INTEGER},</if>
+            <if test="commentContent != null">comment_content = #{commentContent,jdbcType=VARCHAR},</if>
+            <if test="commentCreateTime != null">comment_create_time = #{commentCreateTime,jdbcType=TIMESTAMP},</if>
+        </set>
+        WHERE
+        comment_id = #{commentId,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteCommentById">
+        DELETE FROM
+        <include refid="tb"/>
+        WHERE
+        comment_id = #{commentId,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteCommentByUserId">
+        DELETE FROM
+        <include refid="tb"/>
+        WHERE
+        comment_user_id = #{userId}
+    </delete>
+
+    <delete id="deleteCommentByArticleId">
+        DELETE FROM
+        <include refid="tb"/>
+        WHERE
+        comment_article_id = #{articleId}
+    </delete>
+
+</mapper>

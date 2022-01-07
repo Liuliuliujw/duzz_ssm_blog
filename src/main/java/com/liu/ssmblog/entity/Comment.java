@@ -6,8 +6,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- *  @author: llliujw
- *  @Description: 数据表comment对应实体类 ：评论
+ * @author: llliujw
+ * @Description: 数据表comment对应实体类 ：评论
  */
 @Data
 public class Comment implements Serializable {
@@ -34,7 +34,7 @@ public class Comment implements Serializable {
     /**
      * 评论用户ID
      */
-    private String commentUserId;
+    private Integer commentUserId;
 
     /**
      * 评论内容

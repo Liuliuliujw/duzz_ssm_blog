@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liu.ssmblog.mapper.MenuMapper">
+    <resultMap id="EntityMap" type="com.liu.ssmblog.entity.Menu">
+        <id column="menu_id" property="menuId" jdbcType="INTEGER"/>
+        <result column="menu_pid" property="menuPid" jdbcType="INTEGER"/>
+        <result column="menu_type" property="menuType" jdbcType="INTEGER"/>
+        <result column="menu_name" property="menuName" jdbcType="VARCHAR"/>
+        <result column="menu_url" property="menuUrl" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="tb">menu</sql>
+    <sql id="Base_Column_List">
+        menu_id, menu_pid, menu_type, menu_name, menu_url
+    </sql>
+
+    <insert id="insertMenu" parameterType="com.liu.ssmblog.entity.Menu" useGeneratedKeys="true" keyProperty="menuId">
+        INSERT INTO
+        <include refid="tb"/>
+        (menu_pid, menu_type, menu_name, menu_url)
+        VALUES
+        (#{menuPid,jdbcType=INTEGER}, #{menuType,jdbcType=INTEGER},
+        #{menuName,jdbcType=VARCHAR}, #{menuUrl,jdbcType=VARCHAR})
+    </insert>
+
+    <select id="findMenuById" resultMap="EntityMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="tb"/>
+        where menu_id = #{menuId,jdbcType=INTEGER}
+    </select>
+
+    <select id="listMenu" resultMap="EntityMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        <include refid="tb"/>
+        ORDER BY menu_id ASC
+    </select>
+
+    <update id="updateMenu" parameterType="com.liu.ssmblog.entity.Menu">
+        UPDATE
+        <include refid="tb"/>
+        <set>
+            <if test="menuPid != null">menu_pid = #{menuPid,jdbcType=INTEGER},</if>
+            <if test="menuType != null">menu_type = #{menuType,jdbcType=INTEGER},</if>
+            <if test="menuName != null">menu_name = #{menuName,jdbcType=VARCHAR},</if>
+            <if test="menuUrl != null">menu_url = #{menuUrl,jdbcType=VARCHAR},</if>
+        </set>
+        WHERE
+        menu_id = #{menuId,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteMenuById">
+        DELETE FROM
+        <include refid="tb"/>
+        WHERE
+        menu_id = #{menuId,jdbcType=INTEGER}
+    </delete>
+
+</mapper>

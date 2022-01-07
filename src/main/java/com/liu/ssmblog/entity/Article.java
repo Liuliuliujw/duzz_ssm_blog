@@ -6,11 +6,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- *  @author: llliujw
- *  @Description: 数据表article对应实体类 ：文章
+ * @author: llliujw
+ * @Description: 数据表article对应实体类 ：文章
  */
 @Data
-public class Article implements Serializable{
+public class Article implements Serializable {
     /**
      * 序列化字段，使类对象在序列化时具有一定的向下兼容的能力
      */

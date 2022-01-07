@@ -6,11 +6,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- *  @author: llliujw
- *  @Description: 数据表user对应实体类
+ * @author: llliujw
+ * @Description: 数据表user对应实体类
  */
 @Data
-public class User implements Serializable{
+public class User implements Serializable {
     /**
      * 序列化字段，使类对象在序列化时具有一定的向下兼容的能力
      */
@@ -62,8 +62,8 @@ public class User implements Serializable{
     private Integer userStatus;
 
     /**
-     * 用户角色
+     * 用户角色：UserRoles
      */
-    private String userRole;
+    private Integer userRole;
 
 }

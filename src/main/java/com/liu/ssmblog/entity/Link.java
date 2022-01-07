@@ -6,11 +6,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- *  @author: llliujw
- *  @Description: 数据表link对应实体类 ：友链
+ * @author: llliujw
+ * @Description: 数据表link对应实体类 ：友链
  */
 @Data
-public class Link  implements Serializable{
+public class Link implements Serializable {
     /**
      * 序列化字段，使类对象在序列化时具有一定的向下兼容的能力
      */

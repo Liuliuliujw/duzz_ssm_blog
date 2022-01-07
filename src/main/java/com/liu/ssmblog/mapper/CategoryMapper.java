@@ -8,8 +8,8 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- *  @author: llliujw
- *  @Description: category数据表Mapper
+ * @author: llliujw
+ * @Description: category数据表Mapper
  */
 @Mapper
 public interface CategoryMapper {
@@ -20,15 +20,7 @@ public interface CategoryMapper {
      * @param category 分类
      * @return 影响行数
      */
-    int insert(Category category);
-
-    /**
-     * 更新
-     *
-     * @param category 分类
-     * @return 影响行数
-     */
-    int update(Category category);
+    Integer insertCategory(Category category);
 
     /**
      * 根据分类id获得分类信息
@@ -36,21 +28,15 @@ public interface CategoryMapper {
      * @param id ID
      * @return 分类
      */
-    Category getCategoryById(Integer id);
+    Category findCategoryById(@Param(value = "id") Integer id);
 
     /**
-     * 删除分类
+     * 根据分类标签名获取分类标签
      *
-     * @param id 文章ID
+     * @param name 名称
+     * @return 分类
      */
-    int deleteCategory(Integer id);
-
-    /**
-     * 查询分类总数
-     *
-     * @return 数量
-     */
-    Integer countCategory();
+    Category findCategoryByName(@Param(value = "name") String name);
 
     /**
      * 获得分类列表
@@ -60,10 +46,25 @@ public interface CategoryMapper {
     List<Category> listCategory();
 
     /**
-     * 根据分类标签名获取分类标签
+     * 查询分类总数
      *
-     * @param name 名称
-     * @return 分类
+     * @return 数量
      */
-    Category getCategoryByName(String name);
+    Integer countCategory();
+
+    /**
+     * 更新
+     *
+     * @param category 分类
+     * @return 影响行数
+     */
+    Integer updateCategory(Category category);
+
+    /**
+     * 根据分类id删除分类
+     *
+     * @param id 文章ID
+     */
+    Integer deleteCategoryById(@Param(value = "id") Integer id);
+
 }

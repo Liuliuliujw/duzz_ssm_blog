@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liu.ssmblog.mapper.CustomPageMapper">
+    <resultMap id="EntityMap" type="com.liu.ssmblog.entity.CustomPage">
+        <id column="page_id" property="pageId" jdbcType="INTEGER"/>
+        <result column="page_key" property="pageKey" jdbcType="VARCHAR"/>
+        <result column="page_title" property="pageTitle" jdbcType="VARCHAR"/>
+        <result column="page_content" property="pageContent" jdbcType="VARCHAR"/>
+        <result column="page_create_time" property="pageCreateTime" jdbcType="TIMESTAMP"/>
+        <result column="page_update_time" property="pageUpdateTime" jdbcType="TIMESTAMP"/>
+        <result column="page_status" property="pageStatus" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="tb">custom_page</sql>
+    <sql id="Base_Column_List">
+        page_id, page_key, page_title, page_content, page_create_time, page_update_time, page_status
+    </sql>
+
+    <insert id="insertCustomPage" parameterType="com.liu.ssmblog.entity.CustomPage" useGeneratedKeys="true" keyProperty="pageId">
+        INSERT INTO
+        <include refid="tb"/>
+        (page_id, page_key, page_title, page_content, page_create_time, page_update_time, page_status)
+        VALUES
+        (#{pageId,jdbcType=INTEGER}, #{pageKey,jdbcType=VARCHAR}, #{pageTitle,jdbcType=VARCHAR},
+        #{pageContent,jdbcType=VARCHAR}, #{pageCreateTime,jdbcType=TIMESTAMP},
+        #{pageUpdateTime,jdbcType=TIMESTAMP}, #{pageStatus,jdbcType=INTEGER})
+    </insert>
+
+    <select id="findCustomPageById" resultMap="EntityMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        <include refid="tb"/>
+        WHERE
+        page_id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="findCustomPageByPageKey" resultMap="EntityMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        <include refid="tb"/>
+        <where>
+            page_key=#{pageKey}
+        </where>
+    </select>
+
+    <select id="listCustomPage" resultMap="EntityMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        <include refid="tb"/>
+    </select>
+
+    <update id="updateCustomPage" parameterType="com.liu.ssmblog.entity.CustomPage">
+        UPDATE
+        <include refid="tb"/>
+        <set>
+            <if test="pageKey != null">page_key = #{pageKey,jdbcType=VARCHAR},</if>
+            <if test="pageTitle != null">page_title = #{pageTitle,jdbcType=VARCHAR},</if>
+            <if test="pageContent != null">page_content = #{pageContent,jdbcType=VARCHAR},</if>
+            <if test="pageCreateTime != null">page_create_time = #{pageCreateTime,jdbcType=TIMESTAMP},</if>
+            <if test="pageUpdateTime != null">page_update_time = #{pageUpdateTime,jdbcType=TIMESTAMP},</if>
+            <if test="pageStatus != null">page_status = #{pageStatus,jdbcType=INTEGER}</if>
+        </set>
+        WHERE
+        page_id = #{pageId,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteCustomPageById">
+        DELETE FROM
+        <include refid="tb"/>
+        WHERE
+        page_id = #{id,jdbcType=INTEGER}
+    </delete>
+
+</mapper>

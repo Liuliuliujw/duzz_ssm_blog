@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liu.ssmblog.mapper.ArticleMapper">
+    <resultMap id="EntityMap" type="com.liu.ssmblog.entity.Article">
+        <id column="article_id" property="articleId" jdbcType="INTEGER"/>
+        <result column="article_user_id" property="articleUserId" jdbcType="INTEGER"/>
+        <result column="article_title" property="articleTitle" jdbcType="VARCHAR"/>
+        <result column="article_summary" property="articleSummary" jdbcType="VARCHAR"/>
+        <result column="article_thumbnail" property="articleThumbnail" jdbcType="VARCHAR"/>
+        <result column="article_content" property="articleContent" jdbcType="LONGVARCHAR"/>
+        <result column="article_view_count" property="articleViewCount" jdbcType="INTEGER"/>
+        <result column="article_comment_count" property="articleCommentCount" jdbcType="INTEGER"/>
+        <result column="article_like_count" property="articleLikeCount" jdbcType="INTEGER"/>
+        <result column="article_status" property="articleStatus" jdbcType="INTEGER"/>
+        <result column="article_create_time" property="articleCreateTime" jdbcType="TIMESTAMP"/>
+        <result column="article_update_time" property="articleUpdateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="tb">article</sql>
+
+    <sql id="Base_Column_List">
+        article_id, article_user_id, article_title, article_summary, article_thumbnail, article_content,
+        article_view_count,
+        article_comment_count, article_like_count, article_status, article_create_time, article_update_time
+    </sql>
+
+    <insert id="insertArticle" parameterType="com.liu.ssmblog.entity.Article" useGeneratedKeys="true" keyProperty="articleId">
+        INSERT INTO
+        <include refid="tb"/>
+        (article_user_id, article_title,
+        article_summary, article_thumbnail, article_content,
+        article_view_count, article_comment_count, article_like_count,
+        article_status, article_create_time, article_update_time)
+        VALUES
+        (#{articleUserId,jdbcType=INTEGER}, #{articleTitle,jdbcType=VARCHAR},
+        #{articleSummary,jdbcType=VARCHAR}, #{articleThumbnail,jdbcType=VARCHAR},
+        #{articleContent,jdbcType=LONGVARCHAR}, #{articleViewCount,jdbcType=INTEGER},
+        #{articleCommentCount,jdbcType=INTEGER}, #{articleLikeCount,jdbcType=INTEGER},
+        #{articleStatus,jdbcType=INTEGER}, #{articleCreateTime,jdbcType=TIMESTAMP},
+        #{articleUpdateTime,jdbcType=TIMESTAMP})
+    </insert>
+
+    <select id="findArticleByStatusAndId" resultMap="EntityMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        <include refid="tb"/>
+        <where>
+            <if test="status != null">
+                article_status = #{status} AND
+            </if>
+            article_id = #{id}
+        </where>
+    </select>
+
+    <select id="listArticleByCriteria" resultMap="EntityMap">
+        SELECT
+        article.*
+        FROM
+        article
+        <where>
+            <if test="status != null">
+                article.article_status = #{status} AND
+            </if>
+            <if test="keywords != null">
+                article.article_title LIKE concat(concat('%',#{keywords}),'%') AND
+            </if>
+            <if test="userId != null">
+                article.article_user_id = #{userId} AND
+            </if>
+            <if test="categoryId != null">
+                article.article_id IN (
+                SELECT article_category_ref.article_id FROM article_category_ref
+                WHERE article_category_ref.category_id = #{categoryId}
+                ) AND
+            </if>
+            <if test="tagId != null">
+                article.article_id IN (
+                SELECT article_tag_ref.article_id FROM article_tag_ref
+                WHERE article_tag_ref.tag_id = #{tagId}
+                ) AND
+            </if>
+            1 = 1
+        </where>
+        ORDER BY `article`.`article_id` DESC
+    </select>
+
+    <select id="listArticleByViewCount" resultMap="EntityMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        <include refid="tb"/>
+        WHERE article_status = 1
+        ORDER BY article_view_count DESC, article_id DESC
+        LIMIT #{limit}
+    </select>
+
+    <select id="listArticleByCommentCount" resultMap="EntityMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        <include refid="tb"/>
+        WHERE article_status = 1
+        ORDER BY article_comment_count DESC, article_id DESC
+        LIMIT #{limit}
+    </select>
+
+    <select id="listArticleByCreateTime" resultMap="EntityMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        <include refid="tb"/>
+        WHERE article_status = 1
+        ORDER BY article_create_time DESC, article_id DESC
+        LIMIT #{limit}
+    </select>
+
+    <select id="listArticleByCategoryId" resultMap="EntityMap">
+        SELECT article.*
+        FROM article,
+             article_category_ref
+        WHERE article.article_status = 1
+          AND article.article_id = article_category_ref.article_id
+          AND article_category_ref.category_id = #{catgeoyrId}
+        LIMIT #{limit}
+    </select>
+
+    <select id="listArticleByCategoryIds" resultMap="EntityMap">
+        SELECT
+        DISTINCT article.*
+        FROM article, article_category_ref
+        <where>
+            article.article_status = 1 AND
+            article.article_id = article_category_ref.article_id AND
+            article_category_ref.category_id
+            <if test="categoryIds != null">
+                IN
+                <foreach collection="categoryIds" open="(" close=")" separator="," item="id">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
+        LIMIT #{limit}
+    </select>
+
+    <select id="listArticleIdsByUserId" resultType="java.lang.Integer">
+        SELECT
+        article_id
+        FROM
+        <include refid="tb"/>
+        WHERE
+        article_user_id = #{userId}
+    </select>
+
+    <select id="countArticle">
+        SELECT COUNT(*) FROM
+        <include refid="tb"/>
+        WHERE article_status = 1
+    </select>
+
+    <select id="countArticleByUser">
+        SELECT COUNT(*)
+        FROM
+        <include refid="tb"/>
+        WHERE article_user_id=#{id} AND article_status = 1
+    </select>
+
+    <update id="updateArticle" parameterType="com.liu.ssmblog.entity.Article">
+        UPDATE
+        <include refid="tb"/>
+        <set>
+            <if test="articleUserId != null">article_user_id = #{articleUserId,jdbcType=INTEGER},</if>
+            <if test="articleTitle != null">article_title = #{articleTitle,jdbcType=VARCHAR},</if>
+            <if test="articleSummary != null">article_summary = #{articleSummary,jdbcType=VARCHAR},</if>
+            <if test="articleThumbnail != null">article_thumbnail = #{articleThumbnail,jdbcType=VARCHAR},</if>
+            <if test="articleContent != null">article_content = #{articleContent,jdbcType=LONGVARCHAR},</if>
+            <if test="articleViewCount != null">article_view_count = #{articleViewCount,jdbcType=INTEGER},</if>
+            <if test="articleCommentCount != null">article_comment_count = #{articleCommentCount,jdbcType=INTEGER},</if>
+            <if test="articleLikeCount != null">article_like_count = #{articleLikeCount,jdbcType=INTEGER},</if>
+            <if test="articleStatus != null">article_status = #{articleStatus,jdbcType=INTEGER},</if>
+            <if test="articleCreateTime != null">article_create_time = #{articleCreateTime,jdbcType=TIMESTAMP},</if>
+            <if test="articleUpdateTime != null">article_update_time = #{articleUpdateTime,jdbcType=TIMESTAMP},</if>
+        </set>
+        WHERE article_id = #{articleId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateCommentCount">
+        UPDATE
+        <include refid="tb"/>
+        SET article_comment_count =
+        (
+        SELECT count(*) FROM `comment`
+        WHERE article.article_id=comment.comment_article_id
+        )
+        WHERE article_id=#{articleId}
+    </update>
+
+    <delete id="deleteArticleById">
+        DELETE FROM
+        <include refid="tb"/>
+        WHERE article_id = #{articleId,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteArticleByUserId">
+        DELETE FROM
+        <include refid="tb"/>
+        WHERE article_user_id = #{userId,jdbcType=INTEGER }
+    </delete>
+
+    <delete id="deleteArticleBatchByIds">
+        DELETE FROM
+        <include refid="tb"/>
+        <if test="ids != null">
+            WHERE article_id IN
+            <foreach collection="ids" open="(" close=")" separator="," item="id">
+                #{id}
+            </foreach>
+        </if>
+    </delete>
+
+</mapper>
