@@ -61,7 +61,7 @@ public interface ArticleCategoryRefMapper {
      * @param categoryId 分类ID
      * @return 影响行数
      */
-    Integer deleteByCategoryId(@Param(value = "categoryId") Integer categoryId);
+    Integer deleteArticleCategoryRefByCategoryId(@Param(value = "categoryId") Integer categoryId);
 
     /**
      * 根据文章ID删除记录
@@ -69,5 +69,5 @@ public interface ArticleCategoryRefMapper {
      * @param articleId 文章ID
      * @return 影响行数
      */
-    Integer deleteByArticleId(@Param(value = "articleId") Integer articleId);
+    Integer deleteArticleCategoryRefByArticleId(@Param(value = "articleId") Integer articleId);
 }

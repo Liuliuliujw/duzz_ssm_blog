@@ -23,44 +23,17 @@
         LIMIT 1
     </select>
 
-    <update id="updateSiteTitle">
+    <update id="updateSiteOption" parameterType="com.liu.ssmblog.entity.SiteOption">
         UPDATE
         <include refid="tb"/>
         <set>
-            <if test="siteTitle != null">site_title = #{siteTitle,jdbcType=VARCHAR}</if>
+            <if test="siteTitle != null">site_title = #{siteTitle,jdbcType=VARCHAR},</if>
+            <if test="siteDescription != null">site_descrption = #{siteDescription,jdbcType=VARCHAR},</if>
+            <if test="siteKeywords != null">site_keyword = #{siteKeywords,jdbcType=VARCHAR},</if>
+            <if test="siteIndexUrl != null">site_index_url = #{siteIndexUrl,jdbcType=VARCHAR},</if>
+            <if test="siteIcpNum != null">site_icp_num = #{siteIcpNum,jdbcType=VARCHAR},</if>
         </set>
     </update>
 
-    <update id="updateDescription">
-        UPDATE
-        <include refid="tb"/>
-        <set>
-            <if test="description != null">site_descrption = #{description,jdbcType=VARCHAR}</if>
-        </set>
-    </update>
-
-    <update id="updateKeywords">
-        UPDATE
-        <include refid="tb"/>
-        <set>
-            <if test="keywords != null">site_keyword = #{keywords,jdbcType=VARCHAR}</if>
-        </set>
-    </update>
-
-    <update id="updateIndexUrl">
-        UPDATE
-        <include refid="tb"/>
-        <set>
-            <if test="indexUrl != null">site_index_url = #{indexUrl,jdbcType=VARCHAR}</if>
-        </set>
-    </update>
-
-    <update id="updateICPNum">
-        UPDATE
-        <include refid="tb"/>
-        <set>
-            <if test="icpNum != null">site_icp_num = #{icpNum,jdbcType=VARCHAR}</if>
-        </set>
-    </update>
 
 </mapper>

@@ -79,13 +79,11 @@
     <!-- 通知 -->
     <tx:advice id="txAdvice">
         <tx:attributes>
-            <tx:method name="save*"/>
             <tx:method name="delete*"/>
             <tx:method name="update*"/>
             <tx:method name="insert*"/>
             <tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
-            <tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
-            <tx:method name="select*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="list*" propagation="SUPPORTS" read-only="true"/>
         </tx:attributes>
     </tx:advice>
 

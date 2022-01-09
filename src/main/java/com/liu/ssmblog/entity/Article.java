@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author: llliujw
@@ -76,4 +77,18 @@ public class Article implements Serializable {
      */
     private Date articleUpdateTime;
 
+    /**
+     * 作者（非数据库字段）
+     */
+    private User owner;
+
+    /**
+     * 所属分类（非数据库字段）
+     */
+    private List<Category> categoryList;
+
+    /**
+     * 所属标签（非数据库字段）
+     */
+    private List<Tag> tagList;
 }

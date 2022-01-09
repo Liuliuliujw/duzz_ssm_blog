@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/base::meta('首页')"></head>
+<body>
+<header th:replace="common/base::header"></header>
+<h1 th:each="article : ${articlePage.list}" th:text="${article.articleTitle}"></h1>
+<footer th:replace="common/base::footer"></footer>
+</body>
+</html>

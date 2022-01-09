@@ -19,42 +19,11 @@ public interface SiteOptionMapper {
     SiteOption findSiteOption();
 
     /**
-     * 更新网站标题
+     * 更新网站信息
      *
-     * @param siteTitle 网站标题
+     * @param siteOption 网站信息
      * @return 影响行数
      */
-    Integer updateSiteTitle(@Param("siteTitle") String siteTitle);
+    Integer updateSiteOption(SiteOption siteOption);
 
-    /**
-     * 更新网站描述
-     *
-     * @param description 网站描述
-     * @return 影响行数
-     */
-    Integer updateDescription(@Param("description") String description);
-
-    /**
-     * 更新网站关键词
-     *
-     * @param keywords 网站关键词
-     * @return 影响行数
-     */
-    Integer updateKeywords(@Param("keywords") String keywords);
-
-    /**
-     * 更新网站首页URL
-     *
-     * @param indexUrl 网站首页URL
-     * @return 影响行数
-     */
-    Integer updateIndexUrl(@Param("indexUrl") String indexUrl);
-
-    /**
-     * 更新网站ICP备案号
-     *
-     * @param icpNum 网站ICP备案号
-     * @return 影响行数
-     */
-    Integer updateICPNum(@Param("icpNum") String icpNum);
 }

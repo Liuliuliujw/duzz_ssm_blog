@@ -43,52 +43,53 @@ public interface ArticleMapper {
     /**
      * 按访问量排序获得文章
      *
-     * @param limit 查询数量
      * @return 文章列表
      */
-    List<Article> listArticleByViewCount(@Param(value = "limit") Integer limit);
+    List<Article> listArticleByViewCount();
 
     /**
      * 按评论量排序获得文章
      *
-     * @param limit 查询数量
      * @return 文章列表
      */
-    List<Article> listArticleByCommentCount(@Param(value = "limit") Integer limit);
+    List<Article> listArticleByCommentCount();
 
     /**
      * 按创建时间排序获得文章
      *
-     * @param limit 查询数量
      * @return 列表
      */
-    List<Article> listArticleByCreateTime(@Param(value = "limit") Integer limit);
+    List<Article> listArticleByCreateTime();
 
     /**
      * 根据分类ID
      *
      * @param categoryId 分类ID
-     * @param limit      查询数量
      * @return 文章列表
      */
-    List<Article> listArticleByCategoryId(@Param(value = "categoryId") Integer categoryId,
-                                          @Param(value = "limit") Integer limit);
+    List<Article> listArticleByCategoryId(@Param(value = "categoryId") Integer categoryId);
 
     /**
      * 根据分类ID
      *
      * @param categoryIds 分类ID集合
-     * @param limit       查询数量
      * @return 文章列表
      */
-    List<Article> listArticleByCategoryIds(@Param(value = "categoryIds") List<Integer> categoryIds,
-                                           @Param(value = "limit") Integer limit);
+    List<Article> listArticleByCategoryIds(@Param(value = "categoryIds") List<Integer> categoryIds);
+
+    /**
+     * 获得一个用户的文章集合
+     *
+     * @param userId 用户ID
+     * @return 文章集合
+     */
+    List<Article> listArticleByUserId(@Param(value = "userId") Integer userId);
 
     /**
      * 获得一个用户的文章id集合
      *
-     * @param userId
-     * @return
+     * @param userId 用户ID
+     * @return 文章id集合
      */
     List<Integer> listArticleIdsByUserId(@Param(value = "userId") Integer userId);
 
@@ -121,13 +122,13 @@ public interface ArticleMapper {
      *
      * @param articleId 文章ID
      */
-    void updateCommentCount(@Param(value = "articleId") Integer articleId);
+    Integer updateCommentCount(@Param(value = "articleId") Integer articleId);
 
     /**
      * 根据ID删除
      *
      * @param articleId 文章ID
-     * @return 影响函数
+     * @return 影响行数
      */
     Integer deleteArticleById(@Param(value = "articleId") Integer articleId);
 
@@ -135,7 +136,7 @@ public interface ArticleMapper {
      * 根据用户ID删除
      *
      * @param userId 用户ID
-     * @return 影响函数
+     * @return 影响行数
      */
     Integer deleteArticleByUserId(@Param(value = "userId") Integer userId);
 
@@ -146,4 +147,5 @@ public interface ArticleMapper {
      * @return 影响行数
      */
     Integer deleteArticleBatchByIds(@Param(value = "ids") List<Integer> ids);
+
 }

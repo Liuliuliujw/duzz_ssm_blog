@@ -92,7 +92,6 @@
         <include refid="tb"/>
         WHERE article_status = 1
         ORDER BY article_view_count DESC, article_id DESC
-        LIMIT #{limit}
     </select>
 
     <select id="listArticleByCommentCount" resultMap="EntityMap">
@@ -102,7 +101,6 @@
         <include refid="tb"/>
         WHERE article_status = 1
         ORDER BY article_comment_count DESC, article_id DESC
-        LIMIT #{limit}
     </select>
 
     <select id="listArticleByCreateTime" resultMap="EntityMap">
@@ -112,7 +110,6 @@
         <include refid="tb"/>
         WHERE article_status = 1
         ORDER BY article_create_time DESC, article_id DESC
-        LIMIT #{limit}
     </select>
 
     <select id="listArticleByCategoryId" resultMap="EntityMap">
@@ -122,7 +119,6 @@
         WHERE article.article_status = 1
           AND article.article_id = article_category_ref.article_id
           AND article_category_ref.category_id = #{catgeoyrId}
-        LIMIT #{limit}
     </select>
 
     <select id="listArticleByCategoryIds" resultMap="EntityMap">
@@ -140,7 +136,15 @@
                 </foreach>
             </if>
         </where>
-        LIMIT #{limit}
+    </select>
+
+    <select id="listArticleByUserId" resultMap="EntityMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        <include refid="tb"/>
+        WHERE
+        article_user_id = #{userId}
     </select>
 
     <select id="listArticleIdsByUserId" resultType="java.lang.Integer">

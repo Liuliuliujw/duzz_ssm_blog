@@ -70,7 +70,7 @@ public class MapperTest {
         //删除测试用户文章与标签和分类的关联，以及文章的评论
         articleIds.forEach( articleId ->{
             articleTagRefMapper.deleteArticleTagRefByArticleId(articleId);
-            articleCategoryRefMapper.deleteByArticleId(articleId);
+            articleCategoryRefMapper.deleteArticleCategoryRefByArticleId(articleId);
             commentMapper.deleteCommentByArticleId(articleId);
         });
         //删除测试用户的文章

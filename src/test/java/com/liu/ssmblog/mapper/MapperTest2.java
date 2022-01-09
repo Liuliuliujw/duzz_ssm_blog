@@ -40,14 +40,14 @@ public class MapperTest2 {
     Long now = new Date().getTime();
 
     @Test
-    public void testAllInsert(){
+    public void testAllInsert() {
         testInsertCustomPage();
         testInsertLink();
         testInsertMenu();
     }
 
     @Test
-    public void testDeleteByAllInsert(){
+    public void testDeleteByAllInsert() {
         //删除插入的友链测试数据
         linkMapper.listLink(AvailableStatus.ENABLE.getValue()).stream()
                 .filter(link -> link.getLinkDescription().equals("友链测试"))
@@ -55,7 +55,7 @@ public class MapperTest2 {
 
         //获取插入的自定义页面测试数据和菜单测试数据
         customPageMapper.listCustomPage().stream()
-                .filter( customPage -> customPage.getPageKey().equals("/test456/key/1"))
+                .filter(customPage -> customPage.getPageKey().equals("/test456/key/1"))
                 .forEach(customPage -> {
                     customPageMapper.deleteCustomPageById(customPage.getPageId());
                     menuMapper.listMenu().stream().filter(menu -> menu.getMenuUrl().equals(customPage.getPageKey()))
@@ -64,14 +64,17 @@ public class MapperTest2 {
     }
 
     @Test
-    public void testReadAndUpdateSiteOption(){
+    public void testReadAndUpdateSiteOption() {
         SiteOption siteOption = siteOptionMapper.findSiteOption();
         System.out.println(siteOption);
-        siteOptionMapper.updateKeywords("暂时测试一下");
-        siteOptionMapper.updateKeywords(siteOption.getSiteKeywords());
+        String temp = siteOption.getSiteKeywords();
+        siteOption.setSiteKeywords("暂时测试一下");
+        siteOptionMapper.updateSiteOption(siteOption);
+        siteOption.setSiteKeywords(temp);
+        siteOptionMapper.updateSiteOption(siteOption);
     }
 
-    void testInsertCustomPage(){
+    void testInsertCustomPage() {
         CustomPage customPage = new CustomPage();
         customPage.setPageKey("/test456/key/1");
         customPage.setPageTitle("测试页面");
@@ -83,7 +86,7 @@ public class MapperTest2 {
         customPageMapper.insertCustomPage(customPage);
     }
 
-    void testInsertLink(){
+    void testInsertLink() {
         Link link = new Link();
         link.setLinkUrl("https://www.baidu.com");
         link.setLinkName("百度");
@@ -97,7 +100,7 @@ public class MapperTest2 {
         linkMapper.insertLink(link);
     }
 
-    void testInsertMenu(){
+    void testInsertMenu() {
         String testPageKey = "/test456/key/1";
 
         Menu menu = new Menu();
@@ -107,7 +110,6 @@ public class MapperTest2 {
 
         menuMapper.insertMenu(menu);
     }
-
 
 
 }

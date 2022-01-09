@@ -3,6 +3,7 @@ package com.liu.ssmblog.entity;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author: llliujw
@@ -39,5 +40,10 @@ public class Menu implements Serializable {
      * 菜单的URL
      */
     private String menuUrl;
+
+    /**
+     * 子菜单（非数据库字段）
+     */
+    private List<Menu> childrenMenus;
 
 }
