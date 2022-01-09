@@ -24,23 +24,49 @@
 
 <body>
 <header th:fragment="header">
-    <div>
-        <a th:href="${options.siteIndexUrl}">
-            <img th:src="@{/static/img/favicon.ico}"/>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand"  th:href="${options.siteIndexUrl}" >
+            <img th:src="@{/static/img/favicon.ico}" width="30" height="30" class="d-inline-block align-top" alt=""/>
+            <span th:text="${options.siteTitle}"></span>
         </a>
-        <div>
-            <a th:each="menu : ${menus}"
-               th:href="${options.siteIndexUrl}+${menu.menuUrl}"
-               th:text="${menu.menuName}"></a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <th:block th:each="menu : ${menus}">
+                    <th:block th:if="${menu.childrenMenus == null}">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="${options.siteIndexUrl}+${menu.menuUrl}" th:text="${menu.menuName}"></a>
+                        </li>
+                    </th:block>
+                    <th:block th:if="${menu.childrenMenus != null}">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false"
+                               th:href="${options.siteIndexUrl}+${menu.menuUrl}" th:text="${menu.menuName}"></a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <th:block th:each="xmenu: ${menu.childrenMenus}">
+                                    <a class="dropdown-item" th:href="${options.siteIndexUrl}+${xmenu.menuUrl}" th:text="${xmenu.menuName}"></a>
+                                </th:block>
+                            </div>
+                        </li>
+                    </th:block>
+                </th:block>
+            </ul>
         </div>
-    </div>
+        <div class="col-4 d-flex justify-content-end align-items-center">
+            <a class="btn btn-info" href="#">登录</a>
+        </div>
+    </nav>
 </header>
-<footer th:fragment="footer">
-    <div>
-        <p th:text="${options.siteDescription}"></p>
-    </div>
-    <div>
-        <a th:text="'Copyright©2021'+${options.siteTitle}+'|'+${options.siteIcpNum}"></a>
+
+<footer th:fragment="footer" class="footer fixed-bottom">
+    <div class="container-fluid">
+        <div class="row text-muted bg-dark">
+            <div class="col-4 text-right">
+                <p th:text="${options.siteDescription}"></p>
+            </div>
+            <div class="col-8 text-center">
+                <a th:text="'Copyright©2021'+${options.siteTitle}+'|'+${options.siteIcpNum}"></a>
+            </div>
+        </div>
     </div>
 </footer>
 </body>

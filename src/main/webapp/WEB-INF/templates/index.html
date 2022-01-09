@@ -3,7 +3,11 @@
 <head th:replace="common/base::meta('首页')"></head>
 <body>
 <header th:replace="common/base::header"></header>
-<h1 th:each="article : ${articlePage.list}" th:text="${article.articleTitle}"></h1>
+<div class="container">
+    <div class="container">
+        <h1 th:each="article : ${articlePage.list}" th:text="${article.articleTitle}"></h1>
+    </div>
+</div>
 <footer th:replace="common/base::footer"></footer>
 </body>
 </html>
