@@ -3,11 +3,42 @@
 <head th:replace="common/base::meta('首页')"></head>
 <body>
 <header th:replace="common/base::header"></header>
-<div class="container">
-    <div class="container">
-        <h1 th:each="article : ${articlePage.list}" th:text="${article.articleTitle}"></h1>
+<main role="main">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.(暂时文本，将用一些每日名言来代替 )</p>
+        </div>
+    </section>
+    <div class="album py-5 bg-light">
+        <div class="container">
+            <th:block th:with="colSize=${3}, rowSize=${articlePage.size/colSize}, rowSize=${(articlePage.size%colSize==0 ? rowSize : (rowSize+1))}">
+                <div class="row" th:if="${articlePage.size gt 0}" th:each="rowIdx:${#numbers.sequence(1, rowSize)}">
+                    <div class="col-md-4" th:each="colIdx:${#numbers.sequence(1,colSize)}">
+                        <th:block th:with="idx=(${rowIdx}-1)*${colSize}+${colIdx}-1, article=${idx<articlePage.size ? articlePage.list[idx] : null}">
+                            <th:block th:if="${article ne null}">
+                                <div class="card mb-4 shadow-sm">
+                                    <img class="bd-placeholder-img card-img-top" width="100%" height="225" th:src="@{${article.articleThumbnail}}"></img>
+                                    <div class="card-body">
+                                        <p class="card-text font-weight-bold" th:text="${article.articleTitle}"></p>
+                                        <p class="card-text small text-muted" th:text="${article.articleSummary}"></p>
+                                        <div class="container">
+                                            <th:block th:each="category : ${article.categoryList}">
+                                                <span class="badge bg-primary float-right" th:text="${category.categoryName}"></span>
+                                            </th:block>
+                                        </div>
+                                    </div>
+                                </div>
+                            </th:block>
+                        </th:block>
+                    </div>
+                </div>
+            </th:block>
+            <div class="container">
+                <div th:replace="common/macros::pageNav(${articlePage}, '132')"></div>
+            </div>
+        </div>
     </div>
-</div>
+</main>
 <footer th:replace="common/base::footer"></footer>
 </body>
 </html>

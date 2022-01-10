@@ -27,9 +27,9 @@ public class ResourceInterceptor implements HandlerInterceptor {
     @Autowired
     private MenuService menuService;
 
-    private static SiteOption siteOption;
-
     private static List<Menu> menus;
+
+    private static SiteOption siteOption;
 
     /**
      * 在Controller方法执行之后执行
@@ -46,18 +46,18 @@ public class ResourceInterceptor implements HandlerInterceptor {
         System.out.println("request:"+request);
     }
 
-    private SiteOption getSiteOption() {
-        if (siteOption == null) {
-            siteOption = siteOptionService.findSiteOption();
-        }
-        return siteOption;
-    }
-
     public List<Menu> getMenus() {
         if (menus == null) {
             menus = menuService.findMenuTree();
         }
         return menus;
+    }
+
+    private SiteOption getSiteOption() {
+        if (siteOption == null) {
+            siteOption = siteOptionService.findSiteOption();
+        }
+        return siteOption;
     }
 
     /**

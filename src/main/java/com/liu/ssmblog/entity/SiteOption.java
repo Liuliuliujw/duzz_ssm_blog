@@ -16,7 +16,7 @@ public class SiteOption implements Serializable {
     private static final long serialVersionUID = 6450858315044584923L;
 
     /**
-     * 网站标题
+     * 网站配置的ID
      */
     private Integer optionId;
 

@@ -57,14 +57,12 @@
     </nav>
 </header>
 
-<footer th:fragment="footer" class="footer fixed-bottom">
+<footer th:fragment="footer" class="footer">
     <div class="container-fluid">
         <div class="row text-muted bg-dark">
-            <div class="col-4 text-right">
-                <p th:text="${options.siteDescription}"></p>
-            </div>
-            <div class="col-8 text-center">
-                <a th:text="'Copyright©2021'+${options.siteTitle}+'|'+${options.siteIcpNum}"></a>
+            <div class="col-12 text-center">
+                <a th:text="'Copyright©2021'+${options.siteTitle}+'|'"></a>
+                <a th:text="${options.siteIcpNum}" href="https://beian.miit.gov.cn/"></a>
             </div>
         </div>
     </div>

@@ -39,7 +39,7 @@ public class ServiceTest {
         article.setArticleUserId(1011); //测试用户ID
         article.setArticleTitle("测试文章3");
         article.setArticleSummary("测试文章3的摘要");
-        article.setArticleThumbnail("/static/img/article/test-3.jpg");
+        article.setArticleThumbnail("/static/img/article/test-test-3.jpg");
         article.setArticleContent("<h1>测试文章 333</h1>");
         article.setArticleStatus(VisibleStatus.NORMAL.getValue());
 
