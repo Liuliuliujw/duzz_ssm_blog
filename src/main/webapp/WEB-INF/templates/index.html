@@ -1,7 +1,17 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="common/base::meta('首页')"></head>
-<body>
+<style>
+    .my-badge {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    footer .col-12 {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+</style>
+<body class="bg-light">
 <header th:replace="common/base::header"></header>
 <main role="main">
     <section class="jumbotron text-center">
@@ -9,7 +19,7 @@
             <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.(暂时文本，将用一些每日名言来代替 )</p>
         </div>
     </section>
-    <div class="album py-5 bg-light">
+    <div class="album py-5">
         <div class="container">
             <th:block th:with="colSize=${3}, rowSize=${articlePage.size/colSize}, rowSize=${(articlePage.size%colSize==0 ? rowSize : (rowSize+1))}">
                 <div class="row" th:if="${articlePage.size gt 0}" th:each="rowIdx:${#numbers.sequence(1, rowSize)}">
@@ -23,7 +33,7 @@
                                         <p class="card-text small text-muted" th:text="${article.articleSummary}"></p>
                                         <div class="container">
                                             <th:block th:each="category : ${article.categoryList}">
-                                                <span class="badge bg-primary float-right" th:text="${category.categoryName}"></span>
+                                                <span class="badge bg-primary float-right my-badge" th:text="${category.categoryName}"></span>
                                             </th:block>
                                         </div>
                                     </div>
@@ -34,7 +44,7 @@
                 </div>
             </th:block>
             <div class="container">
-                <div th:replace="common/macros::pageNav(${articlePage}, '132')"></div>
+                <div th:replace="common/macros::pageNav(${articlePage}, 'article')"></div>
             </div>
         </div>
     </div>
