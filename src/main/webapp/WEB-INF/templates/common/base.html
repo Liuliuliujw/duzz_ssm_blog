@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="meta(title)">
+<head th:fragment="meta">
     <!-- 网页使用的字符编码集 -->
     <meta charset="UTF-8">
     <!-- 网页的搜索关键词 -->
@@ -8,7 +8,7 @@
     <!-- 兼容移动端 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <!-- 网页标题 -->
-    <title th:text="${options.siteTitle}+'--'+${title}"></title>
+    <title th:text="${options.siteTitle}"></title>
     <!-- 网页图标 -->
     <link rel="shortcut icon" th:href="@{/static/img/favicon.ico}"/>
     <!-- JQuery_3-->
