@@ -22,5 +22,4 @@ public interface SiteOptionService {
      * @return 是否更新成功
      */
     boolean updateSiteOption(SiteOption siteOption);
-
 }

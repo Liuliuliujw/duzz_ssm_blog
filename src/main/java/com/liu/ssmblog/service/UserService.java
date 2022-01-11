@@ -1,25 +1,23 @@
-package com.liu.ssmblog.mapper;
+package com.liu.ssmblog.service;
 
+import com.github.pagehelper.PageInfo;
 import com.liu.ssmblog.entity.User;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 /**
  * @author: llliujw
- * @Description: user数据表Mapper
+ * @Description: 用户数据访问服务接口
  */
-@Mapper
-public interface UserMapper {
+public interface UserService {
 
     /**
      * 添加
      *
      * @param user 用户
-     * @return 影响行数
+     * @return 是否成功
      */
-    Integer insertUser(User user);
+    boolean insertUser(User user);
 
     /**
      * 根据ID查询
@@ -27,7 +25,7 @@ public interface UserMapper {
      * @param userId 用户ID
      * @return 用户
      */
-    User findUserById(@Param("userId") Integer userId);
+    User findUserById(Integer userId);
 
     /**
      * 根据用户名查用户
@@ -35,7 +33,7 @@ public interface UserMapper {
      * @param name 用户名
      * @return 用户
      */
-    User findUserByName(@Param("name") String name);
+    User findUserByName(String name);
 
     /**
      * 根据Email查询用户
@@ -43,28 +41,29 @@ public interface UserMapper {
      * @param email 邮箱
      * @return 用户
      */
-    User findUserByEmail(@Param("email") String email);
+    User findUserByEmail(String email);
 
     /**
      * 获得用户列表
      *
-     * @return 用户列表
+     * @param pageIndex 页码
+     * @param pageSize 页大小
+     * @return 用户数据页
      */
-    List<User> listUser();
+    PageInfo<User> listUser(int pageIndex, int pageSize);
 
     /**
      * 更新
      *
      * @param user 用户
-     * @return 影响行数
+     * @return 是否成功
      */
-    Integer updateUser(User user);
+    boolean updateUser(User user);
 
     /**
      * 根据ID删除
      *
      * @param userId 用户ID
-     * @return 影响行数
      */
-    Integer deleteUserById(@Param("userId") Integer userId);
+    void deleteUserById(Integer userId);
 }

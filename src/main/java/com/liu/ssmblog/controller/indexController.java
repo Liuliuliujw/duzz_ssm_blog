@@ -21,31 +21,41 @@ public class indexController {
     @Autowired
     ArticleService articleService;
 
-    private static final Integer DEFAULT_PAGE_SIZE = 10;
+    /**
+     * 默认的页大小
+     */
+    private static final Integer DEFAULT_PAGE_SIZE = 6;
 
     /**
      * 首页
-     *
-     * @return
      */
-    @GetMapping(value = {"/", "/index"})
-    public String index(HttpServletRequest request, @RequestParam(value = "pageIndex", defaultValue = "1") Integer pageIndex,
-                        @RequestParam(value = "sortBy", defaultValue = "createTime")String sortBy) {
+    @GetMapping(value = {"/", "/index", "/archive/time"})
+    public String index(HttpServletRequest request, @RequestParam(value = "page", defaultValue = "1") Integer pageIndex,
+                        @RequestParam(value = "sortBy", defaultValue = "createTime") String sortBy) {
         PageInfo<Article> articlePage = null;
-        switch (sortBy.trim()){
-            case "ViewCount" :
+        switch (sortBy.trim()) {
+            case "ViewCount":
                 articlePage = articleService.listArticleByViewCount(pageIndex, DEFAULT_PAGE_SIZE);
                 break;
             case "CommentCount":
                 articlePage = articleService.listArticleByCommentCount(pageIndex, DEFAULT_PAGE_SIZE);
                 break;
-            case "CreateTime" :
-            default :
+            case "CreateTime":
+            default:
                 articlePage = articleService.listArticleByCreateTime(pageIndex, DEFAULT_PAGE_SIZE);
                 break;
         }
         request.setAttribute("articlePage", articlePage);
         return "index";
+    }
+
+    /**
+     * 归档
+     */
+    @GetMapping("/archive/{sortBy}")
+    public String archive(HttpServletRequest request, @RequestParam(value = "page", defaultValue = "1") Integer pageIndex,
+                          @PathVariable(value = "sortBy") String sortBy) {
+        return index(request, pageIndex, sortBy);
     }
 
 }

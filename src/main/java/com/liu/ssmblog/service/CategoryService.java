@@ -1,26 +1,22 @@
-package com.liu.ssmblog.mapper;
+package com.liu.ssmblog.service;
 
 import com.liu.ssmblog.entity.Category;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-
 
 import java.util.List;
 
 /**
  * @author: llliujw
- * @Description: category数据表Mapper
+ * @Description: 分类数据访问接口
  */
-@Mapper
-public interface CategoryMapper {
+public interface CategoryService {
 
     /**
      * 添加
      *
      * @param category 分类
-     * @return 影响行数
+     * @return 是否成功
      */
-    Integer insertCategory(Category category);
+    boolean insertCategory(Category category);
 
     /**
      * 根据分类id获得分类信息
@@ -28,7 +24,7 @@ public interface CategoryMapper {
      * @param id ID
      * @return 分类
      */
-    Category findCategoryById(@Param(value = "id") Integer id);
+    Category findCategoryById(Integer id);
 
     /**
      * 根据分类标签名获取分类标签
@@ -36,7 +32,7 @@ public interface CategoryMapper {
      * @param name 名称
      * @return 分类
      */
-    Category findCategoryByName(@Param(value = "name") String name);
+    Category findCategoryByName(String name);
 
     /**
      * 获得分类列表
@@ -56,14 +52,14 @@ public interface CategoryMapper {
      * 更新
      *
      * @param category 分类
-     * @return 影响行数
+     * @return 是否成功
      */
-    Integer updateCategory(Category category);
+    boolean updateCategory(Category category);
 
     /**
      * 根据分类id删除分类
      *
      * @param id 文章ID
      */
-    Integer deleteCategoryById(@Param(value = "id") Integer id);
+    void deleteCategoryById(Integer id);
 }

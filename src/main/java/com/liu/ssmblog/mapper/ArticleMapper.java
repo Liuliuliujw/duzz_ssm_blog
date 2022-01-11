@@ -147,5 +147,4 @@ public interface ArticleMapper {
      * @return 影响行数
      */
     Integer deleteArticleBatchByIds(@Param(value = "ids") List<Integer> ids);
-
 }

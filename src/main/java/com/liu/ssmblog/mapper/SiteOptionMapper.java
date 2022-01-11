@@ -25,5 +25,4 @@ public interface SiteOptionMapper {
      * @return 影响行数
      */
     Integer updateSiteOption(SiteOption siteOption);
-
 }

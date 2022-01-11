@@ -1,25 +1,22 @@
-package com.liu.ssmblog.mapper;
+package com.liu.ssmblog.service;
 
 import com.liu.ssmblog.entity.Tag;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 /**
  * @author: llliujw
- * @Description: tag数据表Mapper
+ * @Description: 标签数据访问服务接口
  */
-@Mapper
-public interface TagMapper {
+public interface TagService {
 
     /**
      * 添加
      *
      * @param tag 标签
-     * @return 影响行数
+     * @return 是否成功
      */
-    Integer insertTag(Tag tag);
+    boolean insertTag(Tag tag);
 
     /**
      * 根据ID查询
@@ -27,7 +24,7 @@ public interface TagMapper {
      * @param tagId 标签ID
      * @return 标签
      */
-    Tag findTagById(@Param("tagId") Integer tagId);
+    Tag findTagById(Integer tagId);
 
     /**
      * 根据标签名获取标签
@@ -35,7 +32,7 @@ public interface TagMapper {
      * @param name 名称
      * @return 标签
      */
-    Tag findTagByName(@Param("name") String name);
+    Tag findTagByName(String name);
 
     /**
      * 获得标签列表
@@ -55,15 +52,14 @@ public interface TagMapper {
      * 更新
      *
      * @param tag 标签
-     * @return 影响行数
+     * @return 是否成功
      */
-    Integer updateTag(Tag tag);
+    boolean updateTag(Tag tag);
 
     /**
      * 根据ID删除
      *
      * @param tagId 标签ID
-     * @return 影响行数
      */
-    Integer deleteTagById(@Param("tagId") Integer tagId);
+    void deleteTagById(Integer tagId);
 }
