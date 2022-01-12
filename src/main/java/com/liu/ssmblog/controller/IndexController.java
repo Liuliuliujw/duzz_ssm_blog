@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Description: 处理主页相关请求
  */
 @Controller
-public class indexController {
+public class IndexController {
 
     @Autowired
     ArticleService articleService;
@@ -29,10 +30,18 @@ public class indexController {
     /**
      * 首页
      */
-    @GetMapping(value = {"/", "/index", "/archive/time"})
-    public String index(HttpServletRequest request, @RequestParam(value = "page", defaultValue = "1") Integer pageIndex,
-                        @RequestParam(value = "sortBy", defaultValue = "createTime") String sortBy) {
-        PageInfo<Article> articlePage = null;
+    @GetMapping(value = {"/", "/index"})
+    public String index(HttpServletRequest request, @RequestParam(value = "page", defaultValue = "1") Integer pageIndex) {
+        return archive(request, pageIndex, "createTime");
+    }
+
+    /**
+     * 归档
+     */
+    @GetMapping("/archive/{sortBy}")
+    public String archive(HttpServletRequest request, @RequestParam(value = "page", defaultValue = "1") Integer pageIndex,
+                          @PathVariable(value = "sortBy") String sortBy) {
+        PageInfo<Article> articlePage;
         switch (sortBy.trim()) {
             case "ViewCount":
                 articlePage = articleService.listArticleByViewCount(pageIndex, DEFAULT_PAGE_SIZE);
@@ -46,16 +55,17 @@ public class indexController {
                 break;
         }
         request.setAttribute("articlePage", articlePage);
+        request.setAttribute("sortBy", sortBy);
         return "index";
     }
 
     /**
-     * 归档
+     * 404
+     *
+     * @return 404错误页
      */
-    @GetMapping("/archive/{sortBy}")
-    public String archive(HttpServletRequest request, @RequestParam(value = "page", defaultValue = "1") Integer pageIndex,
-                          @PathVariable(value = "sortBy") String sortBy) {
-        return index(request, pageIndex, sortBy);
+    @RequestMapping("/**")
+    public String noFound(){
+        return "common/404";
     }
-
 }

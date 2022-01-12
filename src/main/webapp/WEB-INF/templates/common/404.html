@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="common/base::meta('404')"></head>
+<head th:replace="common/base::meta"></head>
 <body>
 <div class="wrapper-page">
     <div class="ex-page-content text-center">
         <h1>404!</h1>
         <h2>很抱歉，没有找到这个页面！</h2>
-        <br></br>
-        <a class="btn btn-purple waves-effect waves-light" href="/"><i class="fa fa-angle-left"></i> 返回首页</a>
+        <br/>
+        <a class="btn btn-purple waves-effect waves-light" th:href="@{/}"><i class="fa fa-angle-left"></i> 返回首页</a>
     </div>
 </div>
 </body>

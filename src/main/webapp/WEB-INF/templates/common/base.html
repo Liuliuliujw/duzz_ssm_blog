@@ -32,17 +32,22 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <th:block th:each="menu : ${menus}">
-                    <th:block th:if="${menu.childrenMenus == null}">
+                    <th:block th:if="${menu.childrenMenus eq null}">
                         <li class="nav-item">
-                            <a class="nav-link" th:href="${options.siteIndexUrl}+${menu.menuUrl}" th:text="${menu.menuName}"></a>
+                            <th:block th:if="menu.menuUrl eq null">
+                                <a class="nav-link" th:text="${menu.menuName}"></a>
+                            </th:block>
+                            <th:block th:if="menu.menuUrl ne null">
+                                <a class="nav-link" th:href="${options.siteIndexUrl}+${menu.menuUrl}" th:text="${menu.menuName}"></a>
+                            </th:block>
                         </li>
                     </th:block>
-                    <th:block th:if="${menu.childrenMenus != null}">
+                    <th:block th:if="${menu.childrenMenus ne null}">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false"
                                th:href="${options.siteIndexUrl}+${menu.menuUrl}" th:text="${menu.menuName}"></a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <th:block th:each="xmenu: ${menu.childrenMenus}">
+                                <th:block th:each="xmenu : ${menu.childrenMenus}">
                                     <a class="dropdown-item" th:href="${options.siteIndexUrl}+${xmenu.menuUrl}" th:text="${xmenu.menuName}"></a>
                                 </th:block>
                             </div>

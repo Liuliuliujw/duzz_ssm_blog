@@ -21,10 +21,10 @@
     </section>
     <div class="album py-5">
         <div class="container">
-            <th:block th:with="colSize=${3}, rowSize=${articlePage.size/colSize}, rowSize=${(articlePage.size%colSize==0 ? rowSize : (rowSize+1))}">
+            <th:block th:with="colSize=${3}, rowSize=${articlePage.size/colSize}, rowSize=${(articlePage.size%colSize eq 0 ? rowSize : (rowSize+1))}">
                 <div class="row" th:if="${articlePage.size gt 0}" th:each="rowIdx:${#numbers.sequence(1, rowSize)}">
                     <div class="col-md-4" th:each="colIdx:${#numbers.sequence(1,colSize)}">
-                        <th:block th:with="idx=(${rowIdx}-1)*${colSize}+${colIdx}-1, article=${idx<articlePage.size ? articlePage.list[idx] : null}">
+                        <th:block th:with="idx=(${rowIdx}-1)*${colSize}+${colIdx}-1, article=${idx lt articlePage.size ? articlePage.list[idx] : null}">
                             <th:block th:if="${article ne null}">
                                 <div class="card mb-4 shadow-sm">
                                     <img class="bd-placeholder-img card-img-top" width="100%" height="225" th:src="@{${article.articleThumbnail}}"></img>
@@ -44,7 +44,7 @@
                 </div>
             </th:block>
             <div class="container">
-                <div th:replace="common/macros::pageNav(${articlePage}, 'article')"></div>
+                <div th:replace="common/macros::pageNav(${articlePage}, '/archive/'+${sortBy})"></div>
             </div>
         </div>
     </div>

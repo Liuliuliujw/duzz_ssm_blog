@@ -6,7 +6,8 @@
         <ul class="pagination justify-content-center">
             <!-- 这是一种很笨拙的分页导航写法，肯定有更简介的实现，奈何我并不精通Thymeleaf的表达式 -->
             <li th:if="${pageInfo.hasPreviousPage}" class="page-item">
-                <a class="page-link" th:href="@{${url}+'?page='+${pageInfo.prePage}}">
+                <!-- 使用|包裹的字符为中的${}可以的解析，等价于字符串拼接 -->
+                <a class="page-link" th:href="@{|${url}?page=${pageInfo.prePage}|}">
                     <i class="fa fa-angle-left"></i>&nbsp;上一页
                 </a>
             </li>
@@ -16,12 +17,12 @@
                 </a>
             </li>
             <th:block th:each="nav : ${pageInfo.navigatepageNums}">
-                <li th:class="${nav==pageInfo.pageNum}?'page-item active':'page-item'">
-                    <a class="page-link" th:href="@{${url}+'?page='+${nav}}" th:text="${nav}"></a>
+                <li th:class="${nav eq pageInfo.pageNum}?'page-item active':'page-item'">
+                    <a class="page-link" th:href="@{|${url}?page=${nav}|}" th:text="${nav}"></a>
                 </li>
             </th:block>
             <li th:if="${pageInfo.hasNextPage}" class="page-item">
-                <a class="page-link" th:href="@{${url}+'?page='+${pageInfo.nextPage}}">
+                <a class="page-link" th:href="@{|${url}?page=${pageInfo.nextPage}|}">
                     下一页&nbsp;<i class="fa fa-angle-right"></i>
                 </a>
             </li>
