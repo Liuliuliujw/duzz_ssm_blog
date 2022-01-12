@@ -1,7 +1,49 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="common/base::meta"></head>
-<body>
-
+<style>
+    main {
+        margin-top: 80px;
+    }
+    .container {
+        box-sizing: border-box;/*为元素指定的任何内边距和边框都将在已设定的宽度和高度内进行绘制*/
+        min-height: 100%;
+        padding-bottom: 100px;
+    }
+</style>
+<body class="bg-light">
+<header th:replace="common/base::header"></header>
+<main role="main">
+    <article class="container">
+        <div class="justify-content-center">
+            <h3>友情链接</h3>
+            <ul>
+                <th:block th:each="link : ${links}">
+                    <!-- target="_blank"在新窗口打开 -->
+                    <li>🔒 <a th:href="${link.linkUrl}" target="_blank" th:text="${link.linkName}"></a></li>
+                    <br/>
+                </th:block>
+            </ul>
+            <h3>链接须知</h3>
+            <blockquote>
+                <ul>
+                    <li><p>请确定贵站可以稳定运营</p></li>
+                    <li><p>原创博客优先，技术类博客优先，设计、视觉类博客优先</p></li>
+                    <li><p>经常过来访问和评论，眼熟的</p></li>
+                </ul>
+            </blockquote>
+            <h3>基本信息</h3>
+            <blockquote>
+                <ul>
+                    <li><p th:text="'网站名称：'+${options.siteTitle}"></p></li>
+                    <li><p th:text="'网站地址：'+${options.siteIndexUrl}"></p></li>
+                </ul>
+            </blockquote>
+            <p>暂时先这样，同时欢迎互换友链 ^_^</p>
+            <p>还有，我会不定时对无法访问的网址进行清理，请保证自己的链接长期有效</p>
+        </div>
+    </article>
+</main>
+<footer th:replace="common/base::footer"></footer>
 </body>
 </html>
