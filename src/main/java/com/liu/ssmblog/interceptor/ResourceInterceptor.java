@@ -43,7 +43,6 @@ public class ResourceInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable ModelAndView modelAndView) throws Exception {
         request.setAttribute("menus", getMenus());
         request.setAttribute("options", getSiteOption());
-        System.out.println("request:"+request);
     }
 
     public List<Menu> getMenus() {

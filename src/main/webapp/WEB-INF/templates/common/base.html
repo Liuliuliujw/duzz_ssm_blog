@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="meta">
     <!-- 网页使用的字符编码集 -->
     <meta charset="UTF-8">
@@ -57,7 +57,7 @@
             </ul>
         </div>
         <div class="col-4 d-flex justify-content-end align-items-center">
-            <a class="btn btn-info" href="#">登录</a>
+            <a class="btn btn-info" th:href="@{/login}">登录</a>
         </div>
     </nav>
 </header>

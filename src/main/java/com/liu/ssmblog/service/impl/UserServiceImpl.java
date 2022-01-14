@@ -8,6 +8,7 @@ import com.liu.ssmblog.mapper.UserMapper;
 import com.liu.ssmblog.service.ArticleService;
 import com.liu.ssmblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
  * @author: llliujw
  * @Description: 用户数据访问服务接口实现类
  */
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired

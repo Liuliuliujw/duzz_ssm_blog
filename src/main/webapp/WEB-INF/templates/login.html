@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:include="/common/base::meta"></head>
+<link th:href="@{https://v4.bootcss.com/docs/examples/floating-labels/floating-labels.css}" rel="stylesheet">
+<body>
+<form class="form-signin" th:action="@{/user/verify}" method="post">
+    <div class="text-center mb-4">
+        <img class="mb-4" th:src="@{/static/img/favicon.ico}" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal" th:text="${options.siteTitle}"></h1>
+    </div>
+    <div class="form-label-group">
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="email" required autofocus>
+        <label for="inputEmail">邮箱地址</label>
+    </div>
+    <div class="form-label-group">
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
+        <label for="inputPassword">密码</label>
+    </div>
+    <div class="checkbox mb-3">
+        <a href="login.html">忘记密码</a>
+        <p th:text="${info}?${info}:''"></p>
+    </div>
+    <span class="row">
+        <input class="btn btn-lg btn-outline-primary col" value="登录" type="submit"/>
+        <a class="btn btn-lg btn-outline-success col" th:href="@{/register}">注册</a>
+    </span>
+    <p class="mt-5 mb-3 text-muted text-center">&copy; 2022-2023</p>
+</form>
+</body>
+</html>

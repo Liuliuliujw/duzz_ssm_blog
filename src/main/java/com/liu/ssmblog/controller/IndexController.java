@@ -58,14 +58,4 @@ public class IndexController {
         request.setAttribute("sortBy", sortBy);
         return "index";
     }
-
-    /**
-     * 404
-     *
-     * @return 404错误页
-     */
-    @RequestMapping("/**")
-    public String noFound(){
-        return "common/404";
-    }
 }
