@@ -2,8 +2,7 @@ package com.liu.ssmblog.service;
 
 import com.github.pagehelper.PageInfo;
 import com.liu.ssmblog.entity.User;
-
-import java.util.List;
+import com.liu.ssmblog.exception.ExistException;
 
 /**
  * @author: llliujw
@@ -17,7 +16,7 @@ public interface UserService {
      * @param user 用户
      * @return 是否成功
      */
-    boolean insertUser(User user);
+    boolean insertUser(User user) throws ExistException;
 
     /**
      * 根据ID查询

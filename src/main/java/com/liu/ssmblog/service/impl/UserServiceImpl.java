@@ -3,6 +3,7 @@ package com.liu.ssmblog.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.liu.ssmblog.entity.User;
+import com.liu.ssmblog.exception.ExistException;
 import com.liu.ssmblog.mapper.CommentMapper;
 import com.liu.ssmblog.mapper.UserMapper;
 import com.liu.ssmblog.service.ArticleService;
@@ -10,8 +11,6 @@ import com.liu.ssmblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
  * @author: llliujw
@@ -30,8 +29,11 @@ public class UserServiceImpl implements UserService {
     ArticleService articleService;
 
     @Override
-    public boolean insertUser(User user) {
-        return userMapper.insertUser(user) == 1;
+    public boolean insertUser(User user) throws ExistException {
+        if (userMapper.findUserByEmail(user.getUserEmail()) == null) {
+            return userMapper.insertUser(user) == 1;
+        }
+        throw new ExistException("该邮箱已经被注册");
     }
 
     @Override

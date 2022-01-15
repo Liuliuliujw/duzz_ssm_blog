@@ -1,6 +1,7 @@
 package com.liu.ssmblog.controller;
 
 import com.liu.ssmblog.entity.User;
+import com.liu.ssmblog.exception.ExistException;
 import com.liu.ssmblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,8 +27,18 @@ public class UserController {
      * @return 登录页面
      */
     @GetMapping("/login")
-    public String login(){
+    public String login() {
         return "login";
+    }
+
+    /**
+     * 注册
+     *
+     * @return 注册页面
+     */
+    @GetMapping("/register")
+    public String register() {
+        return "register";
     }
 
     /**
@@ -35,10 +46,10 @@ public class UserController {
      *
      * @return 主页/登录页
      */
-    @PostMapping ("/user/verify")
-    public String loginVerify(HttpServletRequest request,  @RequestParam("email") String email, @RequestParam("password") String password){
+    @PostMapping("/user/verify")
+    public String loginVerify(HttpServletRequest request, @RequestParam("email") String email, @RequestParam("password") String password) {
         User user = userService.findUserByEmail(email);
-        if(user == null || !user.getUserPass().equals(password)){
+        if (user == null || !user.getUserPass().equals(password)) {
             request.setAttribute("info", "邮箱或密码错误");
             return "login";
         }
@@ -46,7 +57,13 @@ public class UserController {
         return "redirect:/index";
     }
 
-    public String logout(){
+    @PostMapping("/user/add")
+    public String userAdd(HttpServletRequest request, User user) throws ExistException {
+        userService.insertUser(user);
+        return "redirect:/index";
+    }
+
+    public String logout() {
         return null;
     }
 }
