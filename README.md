@@ -2,7 +2,7 @@
 
 # 项目简介
 
-一个基于SSM的轻量个人博客网站，运用的主要技术栈有SpringMVC、Spring、Mybatis、Thymeleaf、Bootstrap。该项目功能技术简单，结构完整，技术栈版本较新，没有过多的依赖，适合快速上手SSM练习
+SSM练手项目，功能不完善，不定时更新，一个基于SSM的轻量个人博客网站，运用的主要技术栈有SpringMVC、Spring、Mybatis、Thymeleaf、Bootstrap。该项目功能技术简单，结构完整，技术栈版本较新，没有过多的依赖，适合快速上手SSM练习
 ，推荐使用IDEA开发。
 
 # 项目运行环境
